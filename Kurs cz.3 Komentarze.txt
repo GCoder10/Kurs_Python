@@ -1,0 +1,3 @@
+Komentarz na jedną instrukcje = #
+
+Komentarz na wiele instrukcji = """ coś """ LUB ''' coś '''

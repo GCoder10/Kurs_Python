@@ -1,0 +1,38 @@
+File - New file
+Coś wpisać
+Run - run module
+Powłoka - Shell - zmieniamy jej stan
+Wywołanie programu = restart stanu powłoki
+po wywołaniu skryptu, powłoka Python'a działa interaktywnie, czyli jeżeli w skrypcie
+było ustalone wiek = 29, to po uruchomieniu skryptu można wpisać w powłoce bezpośrednio
+print(wiek) i uzyskać wartość zmiennej ze wcześniej uruchomionego pliku.
+
+Taka operacja na zmiennej na powłoce będzie możliwa do jej następnego restartu (jeżeli w
+nowym pliku skryptowym nie będzie tej zmiennej).
+Lub
+Shell - restart shell
+
+
+W powłoce:
+>>> a = 5
+>>> print(a)
+5
+>>> a
+5
+>>> 
+Plik, w którym nie ma zmiennej a, run - run module, restart powłoki
+>>> a
+Traceback (most recent call last):
+  File "<pyshell#12>", line 1, in <module>
+    a
+NameError: name 'a' is not defined
+>>> wiek
+29
+>>> print(wiek)
+29
+>>> 
+
+
+Restarty powłoki są po to, aby zawsze mieć cały nowy stan, żeby nie było 
+konfliktów np. z poprzednimi zmiennymi.
+Skrypt jest uruchamiany z góry pliku do dołu, jego poszczególne instrukcje.

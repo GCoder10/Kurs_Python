@@ -1,0 +1,5 @@
+Python IDLE Shell
+Interaktywna powłoka, np. wpisywanie 2+2 -> otrzymanie wyniku.
+IDLE - Integrated Development Environment - Zintegrowane środowisko do programowania
+2*8 -> 16
+print('Testowy ciąg znaków') -> Testowy ciąg znaków
