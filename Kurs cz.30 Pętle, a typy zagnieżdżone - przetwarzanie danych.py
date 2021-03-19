@@ -1,4 +1,4 @@
-# TYPY ZAGNIEŻDŻONE
+# TYPY ZAGNIEŻDŻONE, wypisanie wartości
 # Zmienne
 imie = "Arkadiusz"
 wiek = 29
@@ -144,3 +144,29 @@ print(SumaZbiorowGosciKrotki)
 print("Czy ktoś nie zapisał sie dwukrotnie (& część wspólna): ")
 CzescWspolnaZbiorowGosciKrotki = ZbiorGosciKrotki & ZbiorGosciKrotki2
 print(CzescWspolnaZbiorowGosciKrotki)
+
+
+# Przetwarzanie danych z typów zagnieżdżonych
+print("")
+print("")
+print("")
+print("")
+print("")
+print("")
+print("")
+print("")
+print("")
+print("")
+print("")
+print("")
+print("")
+print("")
+print("")
+print("")
+print("")
+print("")
+for imie, wiek, plec in ZbiorGosciKrotki:
+    print("Imie:", imie)
+    print("Wiek:", wiek)
+    print("Płeć:", plec)
+    print("\n") # Dodaje ENTER
