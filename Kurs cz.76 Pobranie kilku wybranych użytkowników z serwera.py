@@ -71,4 +71,18 @@ print(completedTaskFrequencyByUser)
 print("=================================================")
 print("Uniwersalna funkcja do liczenia, który klucz ma największą przypisaną wartość w słowniku: ")
 print(get_keys_with_top_values(completedTaskFrequencyByUser))
-            
+print("=============Users===========================")            
+
+# =============================  Sposób pobrania userów 1 ==========================
+response = requests.get("https://jsonplaceholder.typicode.com/users")
+
+users = response.json()
+print(users)
+for user in users: # Spr. czy userId w pobranych danych z użytkownikami z serwera
+    # znajdują się userId z listy usersWithTopCompletedTasks i wypisanie ich
+    # danych.
+    if(user["id"] in usersWithTopCompletedTasks):
+        print("ID: ", user["id"])
+        print("imie: ", user["name"])
+
+# =============================  Sposób pobrania userów 2 ==========================

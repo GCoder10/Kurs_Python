@@ -71,4 +71,73 @@ print(completedTaskFrequencyByUser)
 print("=================================================")
 print("Uniwersalna funkcja do liczenia, który klucz ma największą przypisaną wartość w słowniku: ")
 print(get_keys_with_top_values(completedTaskFrequencyByUser))
-            
+print("=============Users===========================")            
+
+# =============================  Sposób pobrania userów 1 ==========================
+response = requests.get("https://jsonplaceholder.typicode.com/users")
+
+users = response.json()
+print(users)
+for user in users: # Spr. czy userId w pobranych danych z użytkownikami z serwera
+    # znajdują się userId z listy usersWithTopCompletedTasks i wypisanie ich
+    # danych.
+    if(user["id"] in usersWithTopCompletedTasks):
+        print("ID: ", user["id"])
+        print("imie: ", user["name"])
+
+# =============================  Sposób pobrania userów 2 ==========================
+print("\n\n\n\n\n\n\n\n")
+
+
+response5 = requests.get("https://jsonplaceholder.typicode.com/users/5")
+user5 = response5.json()
+print("user5: ")
+print(user5)
+print("ID: ", user5["id"])
+print("imie: ", user5["name"])
+print("\n\n\n\n\n\n\n\n")
+print("========================================================")
+
+"""
+    W celu mniejszego obciążenia serwera przy bardzo dużej ilości danych należy
+    pobrać najpierw dane wszystkich użytkowników do komputera a potem przetwarzać
+    te dane (filtrowanie, sortowanie, szukanie itp.) dopiero w programie.
+    O wiele optymalniejsze rozwiązanie, takie oddzielne pobieranie to najwyżej gdy jest
+    pewność, że jest naprawdę mało danych.
+"""
+for userId in usersWithTopCompletedTasks: # Wykonanie tylu połączeń do serwera w celu
+    # pobrania danych o userach, ile userId jest w liście usersWithTopCompletedTasks
+    # Dla każdego usera pobiera się dane oddzielnie.
+    response = requests.get("https://jsonplaceholder.typicode.com/users/" + str(userId))
+    user = response.json()
+    print("ID: ", user["id"])
+    print("imie: ", user["name"])
+print("========================================================")
+
+
+
+for userId in usersWithTopCompletedTasks: # QueryParams
+    response = requests.get("https://jsonplaceholder.typicode.com/users/", params = "id=5")
+    print("user5 QP: ")
+    user = response.json()
+    print(user)
+
+
+print("========================================================")
+
+
+
+for userId in usersWithTopCompletedTasks: # QueryParams
+    response = requests.get("https://jsonplaceholder.typicode.com/users/", params = "id=" + str(userId))
+    print("users QP: ")
+    user = response.json()
+    print("ID: ", user[0]["id"])
+    print("imie: ", user[0]["name"])
+
+
+
+# =============================  Sposób pobrania userów 3 ==========================
+print("\n\n\n\n\n\n\n\n")
+print("========================================================")
+
+
