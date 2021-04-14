@@ -92,10 +92,39 @@
     np. w C#, po routingu backendu jesteśmy w bloku instrukcji odpowiedzialnym za endpoint favourites
     i gdy typ zapytania to DELETE, to odpowiednio przygotowane instrukcje pobiorą ID z otrzymanego adresu wraz z
     zapytaniem i następnie zostanie usunięte zdjęcie o podanym ID z bazy (Entity Framework).
-
-    
 '''
+"""
+    Optymalizacja i refaktoryzacja:
+        Jak najmniej zapytań do serwera, przy większej obróbce danych najpierw pobieranie wszystkiego
+        do programu a potem dopiero filtrowanie, sortowanie, analizowanie danych itp. a nie ciągle
+        wysyłanie w tym celu zapytań do serwera. Program zrobi to szybciej, nie trzeba posiadać szybkiego
+        łącza przy większej ilości danych i nie obciążamy zbędnie serwera.
 
+        Wykorzystywanie danych, które już są w programie, bez zbędnego pytania serwera o wszystko, np.:
+        Po dodaniu ulubionego kotka przez użytkownika o sub_id, zamiast pytać serwer o listę słowników
+        ulubionych kotków, zaktualizowanie już obecnego słownika favouriteCatsById (wyrażenie słownikowe)
+        o nowe dane z newlyAddedCatInfo:
+            print("Zamiast add_favourite_cat(randomCat[0]['id'], userId), to: ")
+            resultFromAddingFavouriteCat = add_favourite_cat(randomCat[0]["id"], userId))
+            newlyAddedCatInfo = {resultFromAddingFavouriteCat["id"] : randomCat[0]["url"]}
+        favouriteCatsById.update(newlyAddedCatInfo)
+        Update wyrażenia słownikowego danymi z nowego słownika.
+
+        randomCat sugeruje, że dane dotyczą jednego kota, więc po co lista zawierająca słownik dla jednego
+        kota, skoro zawsze będzie to tylko jeden kot, nie potrzeba wtedy listy ze słownikiem w środku.
+        Trzeba zrobić tak, aby dało się odwołać do ID kotka nie w takich sposób: randomCat[0]['id'],
+        tylko za pomocą: randomCat['id'], czyli od razu sam słownik.
+            def get_random_cat():
+                r = requests.get('https://api.thecatapi.com/v1/images/search',
+                                 headers = Kurs_cz87_Credentials.headers)
+                return get_json_content_from_response(r)[0]
+        Od razu w funkcji get_random_cat zwracamy ten pierwszy element, czyli:
+            return get_json_content_from_response(r)[0]
+        i ostatecznie randomCat od razu posiada tylko jeden słownik.
+
+        Dzielenie programu na mniejsze części, np. jak w multiAPI w C++/C++11, dbanie w ten sposób
+        o czytelność kodu w najważniejszych modułach programu.
+"""
 import requests
 import json
 import webbrowser
@@ -122,7 +151,7 @@ def get_json_content_from_response(response):
 def get_random_cat():
     r = requests.get('https://api.thecatapi.com/v1/images/search',
                      headers = Kurs_cz87_Credentials.headers)
-    return get_json_content_from_response(r)
+    return get_json_content_from_response(r)[0]
 
 
 def add_favourite_cat(catId, userId):
@@ -156,11 +185,12 @@ print("Wylosowano kotka:", randomCat)
 
 
 randomCat = get_random_cat()
-print("Pierwszy kotek (słownik) z listy --> randomCat[0]['url']:", randomCat[0]["url"])
+print("Pierwszy kotek (słownik) z listy --> randomCat['url']:", randomCat["url"])
 addToFavourites = input("Czy chcesz dodać do ulubionych tego kotka? T/N")
 if (addToFavourites.upper() == "T"):
-    print("add_favourite_cat(randomCat[0]['id'], userId): ")
-    print(add_favourite_cat(randomCat[0]["id"], userId))
+    print("Zamiast add_favourite_cat(randomCat[0]['id'], userId), to: ")
+    resultFromAddingFavouriteCat = add_favourite_cat(randomCat["id"], userId)
+    newlyAddedCatInfo = {resultFromAddingFavouriteCat["id"] : randomCat["url"]}
 else:
     print("Nie dodano kotka do ulubionych")
 
@@ -169,6 +199,8 @@ favouriteCatsById = {
     favouriteCat["id"]: favouriteCat["image"]["url"]
     for favouriteCat in favouriteCats
 }
+favouriteCatsById.update(newlyAddedCatInfo)
+
 
 print("favouriteCatsById: ")
 print(favouriteCatsById)
