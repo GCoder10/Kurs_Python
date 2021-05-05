@@ -51,6 +51,11 @@ class RocketBoard:
         return self.rockets[key]
     def __setitem__(self, key, value):
         self.rockets[key].altitude = value
+    def __len__(self):
+        return len(self.rockets)
+        # return self.get_amount_of_rockets()
+    def get_amount_of_rockets(self):
+        return len(self.rockets)
     @staticmethod
     def get_distance_via_pattern(rocket1: Rocket, rocket2: Rocket) -> float:
         ab = (rocket1.altitude - rocket2.altitude) ** 2

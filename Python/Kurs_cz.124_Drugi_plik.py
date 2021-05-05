@@ -1,4 +1,4 @@
-from Kurs_cz_123_Okreslenie_typow_Rozszerzenie_Pyright import Rocket, RocketBoard
+from Kurs_cz_124__len__ import Rocket, RocketBoard
 '''
     Import dwóch klas z innego pliku.
     Zdefiniowanie klas w innym pliku, zaimportowanie ich i dopiero
@@ -182,3 +182,31 @@ print("\n\n\n\n\n\n\n\n\n\n")
 newVariable:int = 4
 
 # newVariable = 4.8
+
+
+"""
+    dunder metoda:
+        __len__
+    wywoływana w metodzie w określonym czasie, przy określonym
+    użyciu instancji klasy, obiektu.
+    - Pobranie długości obiektu.
+
+    Musimy określić, co określa długość klasy, obiektu.
+    (ilość rakiet na planszy = jej długość)
+    Długość listy rockets, self.rockets, bo jest to odniesienie
+    do tej konkretnej listy dla tej konkretnej instancji klasy, obiektu.
+
+
+    Można wywoływać metody z klasy w innej metodzie w tej klasie w odniesieniu
+    do konkretnej instancji klasy, obiektu przy pomocy self:
+        return self.get_amount_of_rockets()
+"""
+board2 = RocketBoard(7)
+print("\n\n\n\n\n\n\n\n\n\n")
+print("len(board2)")
+# Potrzebna dunder metoda __len__ do obsługi następnej instrukcji:
+print(len(board2))
+
+
+print("board2.get_amount_of_rockets()")
+print(board2.get_amount_of_rockets())
