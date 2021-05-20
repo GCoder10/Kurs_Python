@@ -1,12 +1,19 @@
 import keyboard
 import os
+from loginFormFile    import showMenu as showMenuVariableFromLoginFormFile
+from registerFormFile import showMenu as showMenuVariableFromRegisterFormFile
 
 
 clearTerminalScreenConsole = lambda: os.system('cls')
 
 
 class ShowMainMenuFormInStartFile():
+    exitProgram: bool     = False
+    firstProgramRun: bool = True
+
+    
     def showMainMenuFormInStartFile(self) -> None:
+        self.firstProgramRun = False
         print("------------------------------------------------------------------")
         print("| System v. 1.0       |   MultiAPI            |   ESC - Exit     |")
         print("| by Imie Nazwisko    |   Choose one option   |                  |")
@@ -23,25 +30,37 @@ class ShowMainMenuFormInStartFile():
             try:
                 if keyboard.is_pressed('L'):
                     clearTerminalScreenConsole()
-                    print("L - Login")
-                    input("Login: ")
+                    while True:
+                        showMenuVariableFromLoginFormFile.showLoginFormInLoginFormFile()
+                        if showMenuVariableFromLoginFormFile.exitLoginForm:
+                            showMenuVariableFromLoginFormFile.exitLoginForm = False
+                            break
                     break
                 if keyboard.is_pressed('l'):
                     clearTerminalScreenConsole()
-                    print("l - Login")
-                    input("Login: ")
+                    while True:
+                        showMenuVariableFromLoginFormFile.showLoginFormInLoginFormFile()
+                        if showMenuVariableFromLoginFormFile.exitLoginForm:
+                            showMenuVariableFromLoginFormFile.exitLoginForm = False
+                            break                       
                     break
                 if keyboard.is_pressed('R'):
                     clearTerminalScreenConsole()
-                    print("R - Register")
-                    input("Register: ")
+                    while True:
+                        showMenuVariableFromRegisterFormFile.showRegisterFormInRegisterFormFile()
+                        if showMenuVariableFromRegisterFormFile.exitRegisterForm:
+                            showMenuVariableFromRegisterFormFile.exitRegisterForm = False
+                            break 
                     break
                 if keyboard.is_pressed('r'):
                     clearTerminalScreenConsole()
-                    print("r - Register")
-                    input("Register: ")
+                    while True:
+                        showMenuVariableFromRegisterFormFile.showRegisterFormInRegisterFormFile()
+                        if showMenuVariableFromRegisterFormFile.exitRegisterForm:
+                            showMenuVariableFromRegisterFormFile.exitRegisterForm = False
+                            break
                     break
                 if keyboard.is_pressed('ESC'):
-                    break
+                    self.exitProgram = True
             except:
                 break

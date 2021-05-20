@@ -35,6 +35,7 @@ class VerifyDataFromLoginFormFunctionsMethods():
 
 
 class ShowLoginFormInLoginFormFile():
+    exitLoginForm: bool = False
     def showLoginFormInLoginFormFile(self) -> None:
         print("------------------------------------------------------------------")
         print("| U - Username                                                   |")
@@ -78,12 +79,8 @@ class ShowLoginFormInLoginFormFile():
                     input("Finish login: ")
                     break
                 if keyboard.is_pressed('B'):
-                    clearTerminalScreenConsole()
-                    print("B - Back")
-                    break
+                    self.exitLoginForm = True
                 if keyboard.is_pressed('b'):
-                    clearTerminalScreenConsole()
-                    print("b - Back")
-                    break
+                    self.exitLoginForm = True
             except:
                 break

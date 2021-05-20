@@ -47,7 +47,8 @@ class VerifyDataFromRegisterFormFunctionsMethods():
 
 
 class ShowRegisterFormInRegisterFormFile():
-    def showRegisterFormInRegisterFormFile(self) -> None:
+    exitRegisterForm: bool = False
+    def showRegisterFormInRegisterFormFile(self) -> None: 
         print("------------------------------------------------------------------")
         print("| A - First Name                                                 |")
         print("| B - Last Name                                                  |")
@@ -156,12 +157,8 @@ class ShowRegisterFormInRegisterFormFile():
                     input("Finish registration: ")
                     break
                 if keyboard.is_pressed('J'):
-                    clearTerminalScreenConsole()
-                    print("J - Back")
-                    break
+                    self.exitRegisterForm = True
                 if keyboard.is_pressed('j'):
-                    clearTerminalScreenConsole()
-                    print("j - Back")
-                    break
+                    self.exitRegisterForm = True
             except:
                 break
